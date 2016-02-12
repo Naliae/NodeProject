@@ -1,0 +1,12 @@
+<% include partials/header %>
+ <h1>Ajouter une chanson</h1>
+ <hr/>
+ <form method="post" action="/songs">
+Title : <input type="text" name="title"><br>
+ Album : <input type="text" name="album"><br>
+ Artist : <input type="text" name="artist"><br>
+ Year : <input type="text" name="year"><br>
+ BPM : <input type="text" name="bpm"><br>
+ <input type="submit" value="Submit">
+ </form>
+<% include partials/footer %>
