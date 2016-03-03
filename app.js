@@ -47,22 +47,21 @@ passport.use(authentication.songApiLocalStrategy());
 app.use(passport.initialize());
 app.use(passport.session());
 var verifyAuth = function(req, res, next) {
- if (req.originalUrl === '/signup' || req.originalUrl === '/login') {
-  return next();
- }
- if (req.isAuthenticated()) {
- return next();
- }
- if (req.accepts('text/html')) {
- return res.redirect('/login');
- }
- if (req.accepts('application/json')) {
- res.set('Location', '/login');
- return res.status(401).send({err: 'User should be logged'});
- }
+  if (req.originalUrl === '/signup' || req.originalUrl === '/login') {
+    return next();
+  }
+  if (req.isAuthenticated()) {
+   return next();
+  }
+  if (req.accepts('text/html')) {
+   return res.redirect('/login');
+  }
+  if (req.accepts('application/json')) {
+   res.set('Location', '/login');
+   return res.status(401).send({err: 'User should be logged'});
+  }
 };
 app.all('*', verifyAuth);
-
 app.use('/', routes);
 app.use('/users', users);
 app.use('/songs', songs);

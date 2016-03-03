@@ -1,6 +1,8 @@
 'use strict'
+
 var Promise = require('bluebird');
 var Users = Promise.promisifyAll(require('../database/users'));
+
 exports.findOneByQuery = function(query) {
  return Users.findOneAsync(query);
 };
