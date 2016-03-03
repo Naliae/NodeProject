@@ -2,21 +2,30 @@
   <%if (err) {%>
    <div style="color:red"><%=err%></div>
   <%} %>
-  <form action="/signup" method="post">
-   <div>
-     <label>Username:</label>
-     <input type="text" name="username"/>
-   </div>
-   <div>
-     <label>Display Name:</label>
-     <input type="text" name="displayName"/>
-   </div>
-   <div>
-     <label>Password:</label>
-     <input type="password" name="password"/>
-   </div>
-     <div>
-     <input type="submit" value="S’inscrire"/>
-   </div>
-  </form>
+  <div class="container">
+    <div class="row">
+      <h4 class="col-sm-offset-4"> Inscription </h4>
+      </br>
+      <form action="/signup" method="post" class="form-horizontal">
+        <div class="col-md-9">
+          <div class="form-group">
+           <label class="col-sm-6 control-label">Username:</label>
+           <input type="text" name="username"/>
+         </div>
+         <div class="form-group">
+           <label class="col-sm-6 control-label">Display Name:</label>
+           <input type="text" name="displayName"/>
+         </div>
+         <div class="form-group">
+           <label class="col-sm-6 control-label">Password:</label>
+           <input type="password" name="password"/>
+         </div>
+         <div class="col-sm-offset-6 col-sm-6">
+           <button type="submit" value="S'inscrire" class="btn btn-default">Sign in</button>
+         </div>
+         </div>
+        </div>
+      </form>
+    </div>
+  </div>
 <% include partials/footer %>

@@ -1,5 +1,13 @@
 <% include partials/header %>
-<table>
+<table class="table table-striped">
+  <tr>
+    <th>Title</th>
+    <th>Album</th>
+    <th>Artist</th>
+    <th>Year</th>
+    <th>Bpm</th>
+  </tr>
+
   <% for(var i=0; i<songs.length; i++) {%>
   <tr>
       <td><%= songs[i].title %></td>
