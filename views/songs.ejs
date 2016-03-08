@@ -1,21 +1,48 @@
 <% include partials/header %>
-<table class="table table-striped">
-  <tr>
-    <th>Title</th>
-    <th>Album</th>
-    <th>Artist</th>
-    <th>Year</th>
-    <th>Bpm</th>
-  </tr>
 
-  <% for(var i=0; i<songs.length; i++) {%>
-  <tr>
-      <td><%= songs[i].title %></td>
-      <td><%= songs[i].album %></td>
-      <td><%= songs[i].artist %></td>
-      <td><%= songs[i].year %></td>
-      <td><%= songs[i].bpm %></td>
-  </tr>
-  <% } %>
-</table>
+<div class="container">
+  <form action="/songs" method="GET">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="form-group">
+          <label for="selectSearch">Search by...  </label>
+          <select class="form-control" name="selectSearch" id="inputSearch">
+            <option value="title"> Title </option>
+            <option value="album"> Album </option>
+            <option value="artist"> Artist</option>
+            <option value="year"> Year </option>
+            <option value="bpm"> Bpm </option>
+          </select>
+        </div>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+        <input type="text" class="form-control" name="inputSearch" placeholder="Search">
+        <span class="input-group-btn">
+          <input class="btn btn-default" type="submit" value="Go !">
+        </span>
+      </form>
+      </div><!-- /input-group -->
+    </div><!-- /.row -->
+    <div class="row">
+      <p> <%= songs.length %> chansons trouvées </p>
+      <table class="col-md-6 table table-striped">
+        <tr>
+          <th>Title</th>
+          <th>Album</th>
+          <th>Artist</th>
+          <th>Year</th>
+          <th>Bpm</th>
+        </tr>
+        <% for(var i=0; i<songs.length; i++) {%>
+          <tr>
+              <td><%= songs[i].title %></td>
+              <td><%= songs[i].album %></td>
+              <td><%= songs[i].artist %></td>
+              <td><%= songs[i].year %></td>
+              <td><%= songs[i].bpm %></td>
+          </tr>
+        <% } %>
+      </table>
+    </div>
+  </div>
 <% include partials/footer %>

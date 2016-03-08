@@ -12,6 +12,19 @@ var verifyIsAdmin = function(req, res, next) {
     }
 };
 
+router.get('/songs', function(req, res) {
+  var input = req.query.inputSearch
+  var input = req.query.selectSearch
+  SongService.search({ selectSearch : inputSearch})
+    .then(function(song) {
+      if (!song) {
+          res.status(404).send({err: 'No song found.'});
+          return;
+      }
+      res.status(200).render('song', {song: song});
+    });
+});
+
 router.get('/', function(req, res) {
     if (req.accepts('text/html') || req.accepts('application/json')) {
         SongService.find(req.query || {})
@@ -52,7 +65,7 @@ router.get('/:id', function(req, res) {
                     return;
                 }
                 if (req.accepts('text/html')) {
-                    return res.render('song', {song: song});
+                    return res.send(songs);
                 }
                 if (req.accepts('application/json')) {
                     return res.send(200, song);
@@ -128,7 +141,7 @@ router.delete('/', verifyIsAdmin, function(req, res) {
             res.status(200).send(songs);
         })
         .catch(function(err) {
-            res.status(500).send(err);
+            res.status(500).send("no result");
         })
     ;
 });
