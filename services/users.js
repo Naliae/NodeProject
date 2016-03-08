@@ -2,6 +2,10 @@
 var Promise = require('bluebird');
 var Users = Promise.promisifyAll(require('../database/users'));
 
+exports.find = function(query) {
+    return Users.findAsync(query);
+};
+
 exports.findOneByQuery = function(query) {
     return Users.findOneAsync(query);
 };

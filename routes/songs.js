@@ -13,10 +13,13 @@ var verifyIsAdmin = function(req, res, next) {
 };
 
 router.get('/songs', function(req, res) {
-  var input = req.query.inputSearch
-  var input = req.query.selectSearch
+  var input = req.query.inputSearch;
+  var input = req.query.selectSearch;
+  console.log('ahhhhh');
+  console.log({ selectSearch : inputSearch});
   SongService.search({ selectSearch : inputSearch})
     .then(function(song) {
+      console.log({ selectSearch : inputSearch});
       if (!song) {
           res.status(404).send({err: 'No song found.'});
           return;
