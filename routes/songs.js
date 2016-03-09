@@ -13,22 +13,22 @@ var verifyIsAdmin = function(req, res, next) {
 };
 
 router.get('/songs', function(req, res) {
-  console.log('blah');
   var inputSearch = req.query.inputSearch;
   var selectSearch = req.query.selectSearch;
-  console.log('ahhhhh');
-  console.log({ selectSearch : inputSearch});
-  SongService.search({ selectSearch : inputSearch})
-    .then(function(song) {
-      console.log({ selectSearch : inputSearch});
-      console.log(song.length);
-      if (!song) {
+  var query = {};
+  query[selectSearch] = inputSearch;
+  SongService.search(query)
+    .then(function(songs) {
+      console.log({ selectSearch : inputSearch })
+      console.log(query);
+      console.log(songs.length);
+      if (!songs) {
           console.log('a');
           res.status(404).send({err: 'No song found.'});
           return;
       }
       console.log('b');
-      res.status(200).render('song', {song: song});
+      res.status(200).render('songs', {songs: songs});
     });
 });
 
