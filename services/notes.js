@@ -2,20 +2,16 @@
 var Promise = require('bluebird');
 var Notes = Promise.promisifyAll(require('../database/notes'));
 
-exports.find = function(query) {
-    return Notes.findAsync(query);
-};
+exports.getNotes = function() {
+    return Notes;
+}
 
 exports.findOneByQuery = function(query) {
     return Notes.findOneAsync(query);
 };
 
-exports.create = function(note) {
-    return Notes.createAsync(note);
-};
-
-exports.deleteAll = function() {
-    return Notes.removeAsync();
+exports.create = function(notes) {
+    return Notes.createAsync(notes);
 };
 
 exports.updateNoteById = function(noteId, noteToUpdate) {

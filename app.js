@@ -58,6 +58,7 @@ var verifyAuth = function(req, res, next) {
     if (req.isAuthenticated()) {
         res.locals.user_session = true;
         res.locals.user_admin = (req.user.username === 'admin');
+        res.locals.user = req.user;
         return next();
     }
     if (req.accepts('text/html')) {

@@ -1,0 +1,26 @@
+<% include partials/header %>
+  <h1>User account</h1>
+  <hr/>
+  Username  : <%=user.username%><br/>
+  displayName : <%=user.displayName%><br/>
+  email : <%=user.email%><br/>
+  <br/>
+  <h3>Chansons favorites</h3>
+  <hr/>
+  <div class="row">
+    <table class="col-md-6 table table-striped">
+      <tr>
+        <th>Action</th>
+        <th>Titre</th>
+      </tr>
+      <tr>
+        <div class="col-md-3">
+          <td><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></td>
+        </div>
+      </tr>
+    </table>
+  </div>
+  <br/>
+
+  <a href="/">Back to home</a>
+<% include partials/footer %>

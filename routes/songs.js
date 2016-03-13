@@ -2,6 +2,8 @@ var express = require('express');
 var _ = require('lodash');
 var router = express.Router();
 var SongService = require('../services/songs');
+var NoteService = require('../services/notes');
+var UserService = require('../services/users');
 
 var verifyIsAdmin = function(req, res, next) {
     if (req.isAuthenticated() && req.user.username === 'admin') {

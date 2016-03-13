@@ -6,3 +6,9 @@ body {
 a {
   color: #00B7FF;
 }
+
+.header-user {
+  color: white;
+  margin-right: 15px;
+  margin-top: 15px;
+}

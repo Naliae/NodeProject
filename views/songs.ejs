@@ -20,11 +20,17 @@
         <span class="input-group-btn">
           <input class="btn btn-default" type="submit" value="Go !">
         </span>
-      </form>
-      </div><!-- /input-group -->
+      </div>
     </div><!-- /.row -->
+    </form>
+    <br/>
     <div class="row">
+      <% if (song.length)==1 { %>
+        <p> <%=song.length %> trouvée </p>
+      <% } else {%>
       <p> <%= songs.length %> chansons trouvées </p>
+      <% } %>
+      <br/>
       <table class="col-md-6 table table-striped">
         <tr>
           <th>Title</th>

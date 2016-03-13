@@ -1,9 +1,10 @@
 'use strict'
 var mongoose = require('mongoose');
-
-var songSchema = mongoose.Schema({
-    number: Number,
-    userNote: String
+​
+var noteSchema = mongoose.Schema({
+    note: {type: Number, required: true},
+    song: {type: mongoose.Schema.Types.ObjectId, required: true},
+    username: {type: String, required: true},
 });
-
-module.exports = mongoose.model('song', songSchema);
+​
+module.exports = mongoose.model('note', noteSchema);

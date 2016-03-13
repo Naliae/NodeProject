@@ -32,12 +32,13 @@
           <ul class="nav navbar-nav">
             <li><a href="/songs">Musique-Thèque</a></li>
             <li><a href="/users">Réseau d'Amis</a></li>
-            <li><a href="/account">Mon Compte</a></li>
+            <li><a href="/users/me">Mon Compte</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <% if (!user_session) { %>
               <li><a href="/login">Login</a></li>
             <% } else { %>
+              <li class="header-user"> <%= user.username %> <%= user.displayName %> </li>
               <li><a href="/logout">Logout</a></li>
             <% } %>
           </ul>
