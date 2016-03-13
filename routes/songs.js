@@ -19,15 +19,10 @@ router.get('/songs', function(req, res) {
   query[selectSearch] = inputSearch;
   SongService.search(query)
     .then(function(songs) {
-      console.log({ selectSearch : inputSearch })
-      console.log(query);
-      console.log(songs.length);
       if (!songs) {
-          console.log('a');
           res.status(404).send({err: 'No song found.'});
           return;
       }
-      console.log('b');
       res.status(200).render('songs', {songs: songs});
     });
 });
@@ -72,7 +67,7 @@ router.get('/:id', function(req, res) {
                     return;
                 }
                 if (req.accepts('text/html')) {
-                    return res.send(songs);
+                    return res.send('song', {song: song});
                 }
                 if (req.accepts('application/json')) {
                     return res.send(200, song);

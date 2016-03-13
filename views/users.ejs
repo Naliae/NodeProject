@@ -4,13 +4,15 @@
   <table class="col-md-6 table table-striped">
     <tr>
       <th>Username</th>
+      <th>email</th>
     </tr>
 
-<% for(var i=0; i<users.length; i++) {%>
+  <% users.forEach(function(user) {%>
 <tr>
-    <td><%= users[i].username %></td>
+    <td><%= user.username %></td>
+    <td><%= user.email %></td>
 </tr>
-<% } %>
+<% }) %>
 </table>
 </div>
 

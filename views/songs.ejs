@@ -32,16 +32,21 @@
           <th>Artist</th>
           <th>Year</th>
           <th>Bpm</th>
-        </tr>
-        <% for(var i=0; i<songs.length; i++) {%>
-          <tr>
-              <td><%= songs[i].title %></td>
-              <td><%= songs[i].album %></td>
-              <td><%= songs[i].artist %></td>
-              <td><%= songs[i].year %></td>
-              <td><%= songs[i].bpm %></td>
-          </tr>
-        <% } %>
+          <% songs.forEach(function(song) {%>
+              <tr>
+                  <td>
+                      <a href="/songs/<%=song._id%>"><%=song.title%></a>
+                  </td>
+                  <td><%=song.album%></td>
+                  <td><%=song.artist%></td>
+                  <td>
+                      <% if (song.year) { %><%=song.year%><% } %>
+                  </td>
+                  <td>
+                      <% if (song.bpm) { %><%=song.bpm%><% } %>
+                  </td>
+              </tr>
+          <% }) %>
       </table>
     </div>
   </div>
