@@ -6,13 +6,13 @@ var UserService = require('../services/users');
 /* GET users listing. */
 router.get('/', function(req, res) {
   if (req.accepts('text/html')  || req.accepts('application/json'))  {
-      UserService.find(req.query)
+      UserService.findAll(req.query)
           .then(function(users){
               if (req.accepts('text/html')) {
                   return res.render('users', {users: users});
               }
               if (req.accepts('application/json')) {
-                  res.status(200).send(songs);
+                  res.status(200).send(users);
               }
           })
       ;
@@ -48,5 +48,19 @@ router.get('/:id', function(req, res) {
     }
 });
 
+router.get('/', function(req, res) {
+  var inputSearch = req.query.inputSearch;
+  var selectSearch = req.query.selectSearch;
+  var query = {};
+  query[selectSearch] = inputSearch;
+  UserService.search(query)
+    .then(function(users) {
+      if (!users) {
+          res.status(404).send({err: 'No user found.'});
+          return;
+      }
+      res.status(200).render('users', {users: users});
+    });
+});
 
 module.exports = router;

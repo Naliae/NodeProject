@@ -1,3 +1,18 @@
 <% include partials/header %>
- <%=title%>
+<div class="container">
+  <div class="row">
+    <table class="col-md-6 table table-striped">
+      <tr>
+        <th>Utilisateurs</th>
+        <th>Email</th>
+      </tr>
+      <% users.forEach(function(user) {%>
+        <tr>
+            <td><a href="/users/<%=user._id%>"><%= user.displayName %> <%= user.username %></td>
+            <td><%= user.email %></td>
+        </tr>
+      <% }) %>
+    </table>
+  </div>
+</div>
 <% include partials/footer %>

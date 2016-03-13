@@ -6,6 +6,10 @@ exports.find = function() {
     return Users.find().sort({createdAt:-1}).limit(3);
 };
 
+exports.findAll = function() {
+    return Users.findAsync();
+};
+
 exports.findOneByQuery = function(query) {
     return Users.findOneAsync(query);
 };
@@ -13,3 +17,7 @@ exports.findOneByQuery = function(query) {
 exports.createUser = function(user) {
     return Users.createAsync(user);
 };
+
+exports.search = function(ObjectToSearch) {
+  return Users.findAsync(ObjectToSearch)
+}
