@@ -67,7 +67,7 @@ router.get('/:id', function(req, res) {
                     return;
                 }
                 if (req.accepts('text/html')) {
-                    return res.send('song', {song: song});
+                    return res.render('song', {song: song});
                 }
                 if (req.accepts('application/json')) {
                     return res.send(200, song);
