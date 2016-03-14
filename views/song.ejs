@@ -1,15 +1,49 @@
 <% include partials/header %>
    <h1><%=song.title%></h1>
    <hr/>
-   Album  : <%=song.album%><br/>
-   Artist : <%=song.artist%><br/>
-   <% if (song.year) { %>
-      Year   : <%=song.year%><br/>
-   <% } %>
-   <% if (song.bpm) { %>
-      BPM   : <%=song.bpm%><br/>
-   <% } %>
-   <br/>
+   <div class="container">
+     <div class="row">
+     Album  : <%=song.album%><br/>
+     Artist : <%=song.artist%><br/>
+     <% if (song.year) { %>
+        Year   : <%=song.year%><br/>
+     <% } %>
+     <% if (song.bpm) { %>
+        BPM   : <%=song.bpm%><br/>
+     <% } %>
+    </div>
+  </div>
+  <br/>
+   <div class="row">
+     <div>
+        <div>
+            <% if (!note) { %>
+            <form action="/songs/<%=song._id%>/note" method="post">
+                <div class="form-group">
+                    <label>Noter :</label>
+                   <select id="note" name=note>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+               <button type="submit" class="btn btn-primary">Noter une chanson</button>
+            </form>
+            <% } else { %>
+               <h4>Note de la chanson (<%= note.note %>)</h4>
+            <% } %>
+        </div>
+            <form action="/songs/<%=song._id%>/favoris" method="post">
+               <button type="submit" class="btn btn-success">Ajouter aux favoris</button>
+            </form>
+            <form action="/songs/<%=song._id%>/favoris?_method=delete" method="post">
+               <button type="submit" class="btn btn-danger">Supprimer des favoris</button>
+            </form>
+        </div>
+    </div>
+   </div>
    <% if (user_admin) { %>
     <a href="/songs/edit/<%=song._id%>">Editer</a> |
    <% } %>

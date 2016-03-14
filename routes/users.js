@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var UserService = require('../services/users');
+var NoteService = require('../services/notes');
 var SongService = require('../services/songs');
 
+/* GET search users listing. */
 router.get('/users', function(req, res) {
   var inputSearch = req.query.inputSearch;
   var selectSearch = req.query.selectSearch;
@@ -64,6 +66,7 @@ router.get('/me', function(req, res) {
   }
 });
 
+/* GET user. */
 router.get('/:id', function(req, res) {
     if (req.accepts('text/html') || req.accepts('application/json')) {
         UserService.findOneByQuery({_id: req.params.id})

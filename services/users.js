@@ -21,3 +21,18 @@ exports.createUser = function(user) {
 exports.search = function(ObjectToSearch) {
   return Users.findAsync(ObjectToSearch)
 }
+
+exports.addFavoritesToUser = function(userId, songId) {
+    return Users.findOneAndUpdateAsync(
+        {_id: userId},
+        {$push: {favoriteSongs: songId}},
+        {new: true}
+    );
+};
+exports.deleteFavoritesToUser = function(userId, songId) {
+    return Users.findOneAndUpdateAsync(
+        {_id: userId},
+        {$pop: {favoriteSongs: songId}},
+        {new: true}
+    );
+}

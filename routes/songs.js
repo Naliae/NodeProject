@@ -14,6 +14,24 @@ var verifyIsAdmin = function(req, res, next) {
     }
 };
 
+router.get('/', function(req, res) {
+    if (req.accepts('text/html') || req.accepts('application/json')) {
+        SongService.getTop5SongsByNotes()
+            .then(function(notes) {
+                if (req.accepts('text/html')) {
+                    return res.render('index', {notes: notes});
+                }
+                if (req.accepts('application/json')) {
+                    res.status(200).send(notes);
+                }
+            })
+        ;
+    }
+    else {
+        res.status(406).send({err: 'Not valid type for asked ressource'});
+    }
+});
+
 router.get('/songs', function(req, res) {
   var inputSearch = req.query.inputSearch;
   var selectSearch = req.query.selectSearch;
@@ -47,6 +65,61 @@ router.get('/', function(req, res) {
     }
 });
 
+router.post('/:id/note', function(req, res) {
+    SongService.findOneByQuery({_id: req.params.id})
+        .then(function(song) {
+          var Note = { song: song._id, username: req.user.username,};
+
+            if (!song) {
+              res.status(404).send({err: 'No song found with id' + req.params.id});
+                return;
+            }
+
+            NoteService.findOneByQuery(Note)
+                .then(function(note) {
+                    Note.note = req.body.note;
+                    NoteService.create(Note)
+                        .then(function(note) {
+                            if (req.accepts('text/html')) {
+                                return res.redirect('/songs/' + song._id);
+                            }
+                            if (req.accepts('application/json')) {
+                                return res.status(200).send(song);
+                            }
+                        })
+                        .catch(function(err) {
+                            res.status(500).send(err);
+                        })
+                    ;
+                })
+                .catch(function(err) {
+                    res.status(500).send(err);
+                })
+            ;
+        })
+        .catch(function(err) {
+            console.log(err);
+            res.status(500).send(err);
+        })
+    ;
+})
+
+router.post('/:id/favoris', function(req, res) {
+    UserService.addFavoritesToUser(req.user._id, req.params.id)
+        .then(function(user) {
+            if (req.accepts('text/html')) {
+                return res.redirect("/songs/" + req.params.id);
+            }
+            if (req.accepts('application/json')) {
+                res.status(201).send(user);
+            }
+        })
+        .catch(function(err) {
+            res.status(500).send(err);
+        })
+    ;
+});
+
 router.get('/add', function(req, res) {
     var song = (req.session.song) ? req.session.song : {};
     var err = (req.session.err) ? req.session.err : null;
@@ -69,15 +142,21 @@ router.get('/:id', function(req, res) {
                     return;
                 }
                 if (req.accepts('text/html')) {
-                    return res.render('song', {song: song});
+                    var note = { song: song._id, username: req.user.username, };
+                    NoteService.getNotes().findOne(note, function(err, userNote) {
+                            res.render('song', {song: song, note: userNote});
+                        }
+                    );
+                    return;
                 }
                 if (req.accepts('application/json')) {
-                    return res.send(200, song);
+                    res.status(200).send(song);
+                    return;
                 }
             })
             .catch(function(err) {
                 console.log(err);
-                res.status(500).send(err);
+                return res.status(500).send(err);
             })
         ;
     }
