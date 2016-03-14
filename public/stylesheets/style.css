@@ -17,3 +17,8 @@ a {
   color: #f0ad4e;
   font-size: 30px;
 }
+
+.glyphicon-ok {
+  color: green;
+  font-size: 30px;
+}

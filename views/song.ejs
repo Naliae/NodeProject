@@ -17,46 +17,53 @@
   <hr/>
    <div class="row">
      <div>
-        <div>
-            <% if (!note) { %>
-            <form action="/songs/<%=song._id%>/note" method="post">
-                <div class="form-group">
-                    <label>Noter :</label>
-                   <select id="note" name=note>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                </div>
-               <button type="submit" class="btn btn-primary">Noter une chanson</button>
-            </form>
-            <% } else { %>
-               <h4>Note de la chanson (<%= note.note %>)</h4>
-               <% for (i=0; i<note.note; i++) { %>
-                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-               <% } %>
-            <% } %>
-          </div>
-          <hr/>
-          <div class="col-lg-2">
-            <form action="/songs/<%=song._id%>/favoris" method="post">
-               <button type="submit" class="btn btn-success">Ajouter aux favoris</button>
-            </form>
-          </div>
-          <div class="col-lg-2">
-            <form action="/songs/<%=song._id%>/favoris?_method=delete" method="post">
-               <button type="submit" class="btn btn-danger">Supprimer des favoris</button>
-            </form>
-          </div>
-        </div>
+      <% if (!note) { %>
+        <form action="/songs/<%=song._id%>/note" method="post">
+            <div class="form-group">
+                <label>Noter :</label>
+               <select id="note" name=note>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">Noter une chanson</button>
+          </form>
+          <% } else { %>
+           <h4>Note de la chanson (<%= note.note %>)</h4>
+           <% for (i=0; i<note.note; i++) { %>
+             <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+           <% } %>
+        <% } %>
+      </div>
     </div>
-   </div>
-   <% if (user_admin) { %>
-    <br/>
-    <a href="/songs/edit/<%=song._id%>">Editer</a> |
-   <% } %>
-   <br/>
-   <a href="/songs">Toutes les chansons</a>
+    <hr/>
+    <div class="row">
+      <div class="col-lg-2">
+        <!-- need a deco.reco  -->
+        <% if (user.favoriteSongs.indexOf(String(song._id)) >= 0) {%>
+          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        <% } else { %>
+          <h4> Ajouter aux favoris : </h4>
+          <form action="/songs/<%=song._id%>/favoris" method="post">
+             <button type="submit">
+               <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+             </button>
+          </form>
+        <% } %>
+      </div>
+      <div class="col-lg-2">
+        <form action="/songs/<%=song._id%>/favoris?_method=delete" method="post">
+          <button type="submit" class="btn btn-danger">Supprimer des favoris</button>
+        </form>
+      </div>
+    </div>
+    <% if (user_admin) { %>
+        <br/>
+        <a href="/songs/edit/<%=song._id%>">Editer</a> |
+     <% } %>
+     <br/>
+     <a href="/songs">Toutes les chansons</a>
 <% include partials/footer %>
