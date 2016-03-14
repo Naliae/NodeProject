@@ -28,21 +28,19 @@ exports.updateSongById = function(songId, songToUpdate) {
 exports.getTop5SongsByNotes = function() {
   var notesSongs=[];
   return Notes.aggregateAsync([
-    {$group: {_id:"$songs_id", avgNote:{$avg:"$note"}}},
+    {$group: {_id:"$song", avgNote:{$avg:"$note"}}},
     {$sort:{avgNote:-1}},
     {$limit:5}
   ])
   .then(function(notes){
     var ids=_.map(notes,'_id');
     notesSongs=notes;
-    console.log(notesSongs);
     return Songs.find({_id:{$in:ids}});
   })
   .then(function(songs){
     return _.map(notesSongs,function(n){
       var note=_.clone(n);
       note.song=_.find(songs,{_id:n._id});
-      console.log(note);
       return note;
       });
     })

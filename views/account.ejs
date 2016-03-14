@@ -1,8 +1,6 @@
 <% include partials/header %>
-  <h1>User account</h1>
+  <h1>User account : <%=user.username%> <%=user.displayName%></h1>
   <hr/>
-  Username  : <%=user.username%><br/>
-  displayName : <%=user.displayName%><br/>
   email : <%=user.email%><br/>
   <br/>
   <h3>Chansons favorites</h3>
@@ -13,12 +11,18 @@
         <th>Action</th>
         <th>Titre</th>
       </tr>
-      <tr>
-        <div class="col-md-3">
-          <td><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></td>
-          <td><%= song.note %></td>
-        </div>
-      </tr>
+      <% user.favoriteSongs.forEach(function(song) {%>
+        <tr>
+          <td>
+            <form action="/songs/<%=song%>/favorite?_method=delete" method="post">
+              <button type="submit">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+              </button>
+            </form>
+          </td>
+          <td><a href="/songs/<%=song%>"><%=song%></a></td>
+        </tr>
+      <% }) %>
     </table>
   </div>
   <br/>

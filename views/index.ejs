@@ -1,28 +1,41 @@
 <% include partials/header %>
 <div class="container">
   <div class="row">
-    <table class="col-md-6 table table-striped">
-      <tr>
-        <th>Utilisateurs</th>
-        <th>Email</th>
-      </tr>
-      <% users.forEach(function(user) {%>
-        <tr>
-            <td><a href="/users/<%=user._id%>"><%= user.displayName %> <%= user.username %></td>
-            <td><%= user.email %></td>
-        </tr>
-      <% }) %>
-    </table>
-    <br/>
-    <table class="col-md-6 table table-striped">
-      <tr>
-        <th>Numéro</th>
-        <th>Titre</th>
-      </tr>
-        <tr>
-            <td><%= note.song %></td>
-        </tr>
-    </table>
+    <div class="col-md-10">
+      <div class="col-md-6">
+        <h2> Derniers utilisateurs </h2>
+        <table class="table table-bordered table-striped">
+          <tr>
+            <th>Utilisateurs</th>
+            <th>Email</th>
+          </tr>
+          <% users.forEach(function(user) {%>
+            <tr>
+                <td><a href="/users/<%=user._id%>"><%= user.displayName %> <%= user.username %></td>
+                <td><%= user.email %></td>
+            </tr>
+          <% }) %>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <h2> Top 5 des chansons favorites! </h2>
+        <table class="col-md-5 table table-bordered table-striped">
+          <tr>
+            <th>Numéro</th>
+            <th>Titre</th>
+          </tr>
+          <% var i=0 %>
+          <% notes.forEach(function(note) { i++ %>
+              <tr>
+                  <td><%= i %></td>
+                  <td>
+                    <%= note.song.title %>
+                  </td>
+              </tr>
+          <% }) %>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 <% include partials/footer %>

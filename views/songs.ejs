@@ -1,28 +1,30 @@
 <% include partials/header %>
 
 <div class="container">
-  <form action="/songs/songs" method="GET">
-    <div class="row">
-      <div class="col-lg-4">
+  <div class="row">
+    <form action="/songs/songs" method="GET">
         <div class="form-group">
-          <label for="selectSearch">Search by...  </label>
-          <select class="form-control" name="selectSearch" id="selectSearch">
-            <option value="title"> Title </option>
-            <option value="album"> Album </option>
-            <option value="artist"> Artist</option>
-            <option value="year"> Year </option>
-            <option value="bpm"> Bpm </option>
-          </select>
+          <div class="col-lg-2">
+            <label for="selectSearch">Search by...  </label>
+          </div>
+          <div class="col-lg-4">
+            <select class="form-control" name="selectSearch" id="selectSearch">
+              <option value="title"> Title </option>
+              <option value="album"> Album </option>
+              <option value="artist"> Artist</option>
+              <option value="year"> Year </option>
+              <option value="bpm"> Bpm </option>
+            </select>
+          </div>
         </div>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <input type="text" class="form-control" name="inputSearch" placeholder="Search">
+        <div class="col-lg-4">
+          <input type="text" class="form-control" name="inputSearch" placeholder="Search">
+        </div>
         <span class="input-group-btn">
           <input class="btn btn-default" type="submit" value="Go !">
         </span>
-      </div>
+      </form>
     </div><!-- /.row -->
-    </form>
     <br/>
     <div class="row">
       <p> <%= songs.length %> chansons trouvées </p>

@@ -14,6 +14,7 @@
     </div>
   </div>
   <br/>
+  <hr/>
    <div class="row">
      <div>
         <div>
@@ -33,19 +34,28 @@
             </form>
             <% } else { %>
                <h4>Note de la chanson (<%= note.note %>)</h4>
+               <% for (i=0; i<note.note; i++) { %>
+                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+               <% } %>
             <% } %>
-        </div>
+          </div>
+          <hr/>
+          <div class="col-lg-2">
             <form action="/songs/<%=song._id%>/favoris" method="post">
                <button type="submit" class="btn btn-success">Ajouter aux favoris</button>
             </form>
+          </div>
+          <div class="col-lg-2">
             <form action="/songs/<%=song._id%>/favoris?_method=delete" method="post">
                <button type="submit" class="btn btn-danger">Supprimer des favoris</button>
             </form>
+          </div>
         </div>
     </div>
    </div>
    <% if (user_admin) { %>
     <a href="/songs/edit/<%=song._id%>">Editer</a> |
    <% } %>
-   <a href="/songs">Tous les chansons</a>
+   <br/>
+   <a href="/songs">Toutes les chansons</a>
 <% include partials/footer %>

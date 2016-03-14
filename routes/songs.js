@@ -14,24 +14,6 @@ var verifyIsAdmin = function(req, res, next) {
     }
 };
 
-router.get('/', function(req, res) {
-    if (req.accepts('text/html') || req.accepts('application/json')) {
-        SongService.getTop5SongsByNotes()
-            .then(function(notes) {
-                if (req.accepts('text/html')) {
-                    return res.render('index', {notes: notes});
-                }
-                if (req.accepts('application/json')) {
-                    res.status(200).send(notes);
-                }
-            })
-        ;
-    }
-    else {
-        res.status(406).send({err: 'Not valid type for asked ressource'});
-    }
-});
-
 router.get('/songs', function(req, res) {
   var inputSearch = req.query.inputSearch;
   var selectSearch = req.query.selectSearch;
@@ -56,6 +38,24 @@ router.get('/', function(req, res) {
                 }
                 if (req.accepts('application/json')) {
                     res.status(200).send(songs);
+                }
+            })
+        ;
+    }
+    else {
+        res.status(406).send({err: 'Not valid type for asked ressource'});
+    }
+});
+
+router.get('/', function(req, res) {
+    if (req.accepts('text/html') || req.accepts('application/json')) {
+        NoteService.getTop5SongsByNotes()
+            .then(function(notes) {
+                if (req.accepts('text/html')) {
+                    return res.render('index', {notes: notes});
+                }
+                if (req.accepts('application/json')) {
+                    res.status(200).send(notes);
                 }
             })
         ;
@@ -270,6 +270,17 @@ router.put('/:id', verifyIsAdmin, function(req, res) {
 
 router.delete('/:id', verifyIsAdmin, function(req, res) {
     SongService.removeAsync({_id: req.params.id})
+        .then(function() {
+            res.status(204);
+        })
+        .catch(function(err) {
+            res.status(500).send(err);
+        })
+    ;
+});
+
+router.delete('/:id/favorite', function(req, res) {
+    SongService.deleteFavoritesToUser(req.user._id, req.params.id)
         .then(function() {
             res.status(204);
         })

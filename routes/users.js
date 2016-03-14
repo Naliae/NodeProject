@@ -49,6 +49,7 @@ router.get('/me', function(req, res) {
                   return;
               }
               if (req.accepts('text/html')) {
+                  console.log(user);
                   return res.render('account', {user: user});
               }
               if (req.accepts('application/json')) {
