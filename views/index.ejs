@@ -30,9 +30,11 @@
                   <td><%= i %></td>
                   <td>
                     <%= note.song.title %>
-                    <% for (j=0; j<note.note; j++) { %>
-                      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                    <% } %>
+                    <div class="pull-right">
+                      <% for (j=0; j<note.avgNote; j++) { %>
+                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                      <% } %>
+                    </div>
                   </td>
               </tr>
           <% }) %>
