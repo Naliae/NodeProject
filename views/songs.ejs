@@ -53,5 +53,9 @@
           <% }) %>
       </table>
     </div>
+    <% if (user_admin) { %>
+     <br/>
+     <a href="/songs/add/">Ajouter une chanson</a> |
+    <% } %>
   </div>
 <% include partials/footer %>

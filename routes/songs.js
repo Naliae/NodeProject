@@ -279,10 +279,24 @@ router.delete('/:id', verifyIsAdmin, function(req, res) {
     ;
 });
 
-router.delete('/:id/favorite', function(req, res) {
-    SongService.deleteFavoritesToUser(req.user._id, req.params.id)
-        .then(function() {
-            res.status(204);
+router.delete('/all/favoris', function(req, res) {
+    UserService.deleteAllFavoritesToUser(req.user._id)
+        .then(function(user) {
+            if (req.accepts('application/json')) {
+                res.status(204).send();
+            }
+        })
+        .catch(function(err) {
+            res.status(500).send(err);
+        })
+    ;
+});
+router.delete('/:id/favoris', function(req, res) {
+    UserService.deleteFavoritesToUser(req.user._id, req.params.id)
+        .then(function(user) {
+            if (req.accepts('application/json')) {
+                res.status(204).send();
+            }
         })
         .catch(function(err) {
             res.status(500).send(err);

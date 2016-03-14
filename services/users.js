@@ -36,3 +36,11 @@ exports.deleteFavoritesToUser = function(userId, songId) {
         {new: true}
     );
 }
+
+exports.deleteAllFavoritesToUser = function(userId) {
+   return Users.findOneAndUpdateAsync(
+       {_id: userId},
+       {favoriteSongs: []},
+       {new: true}
+   );
+};

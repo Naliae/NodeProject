@@ -12,18 +12,24 @@
         <th>Titre</th>
       </tr>
       <% user.favoriteSongs.forEach(function(song) {%>
-        <tr>
-          <td>
-            <form action="/songs/<%=song%>/favorite?_method=delete" method="post">
-              <button type="submit">
-                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-              </button>
-            </form>
-          </td>
-          <td><a href="/songs/<%=song%>"><%=song%></a></td>
-        </tr>
-      <% }) %>
+          <tr>
+            <td>
+              <form action="/songs/<%=song%>/favoris?_method=delete" method="post">
+                <button type="submit">
+                  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                </button>
+              </form>
+            </td>
+            <td>
+              <a href="/songs/<%=song%>"><%=song%></a>
+            </td>
+
+          </tr>
+        <% }) %>
     </table>
+    <br/>
+    <button form="deleteAll" type="submit" class="btn btn-danger">Supprimer tous les favoris</button>
+    <form id="deleteAll" action="/songs/all/favoris?_method=delete" method="post"></form>
   </div>
   <br/>
 
