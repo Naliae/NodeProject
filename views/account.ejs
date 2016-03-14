@@ -1,0 +1,37 @@
+<% include partials/header %>
+  <h1>User account : <%=user.username%> <%=user.displayName%></h1>
+  <hr/>
+  email : <%=user.email%><br/>
+  <br/>
+  <h3>Chansons favorites</h3>
+  <hr/>
+  <div class="row">
+    <table class="col-md-6 table table-striped">
+      <tr>
+        <th>Action</th>
+        <th>Titre</th>
+      </tr>
+      <% user.favoriteSongs.forEach(function(song) {%>
+          <tr>
+            <td>
+              <form action="/songs/<%=song%>/favoris?_method=delete" method="post">
+                <button type="submit">
+                  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                </button>
+              </form>
+            </td>
+            <td>
+              <a href="/songs/<%=song%>"><%=song%></a>
+            </td>
+
+          </tr>
+        <% }) %>
+    </table>
+    <br/>
+    <button form="deleteAll" type="submit" class="btn btn-danger">Supprimer tous les favoris</button>
+    <form id="deleteAll" action="/songs/all/favoris?_method=delete" method="post"></form>
+  </div>
+  <br/>
+
+  <a href="/">Back to home</a>
+<% include partials/footer %>

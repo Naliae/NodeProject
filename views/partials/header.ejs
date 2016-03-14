@@ -22,7 +22,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/songs">
+          <a class="navbar-brand" href="/">
             <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
           </a>
         </div>
@@ -31,18 +31,16 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li><a href="/songs">Musique-Thèque</a></li>
-            <li><a href="/friends">Réseau d'Amis</a></li>
-            <li><a href="/account">Mon Compte</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Your Music List <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Add a Music</a></li>
-                <li><a href="#">Edit a Music</a></li>
-              </ul>
-            </li>
+            <li><a href="/users">Réseau d'Users</a></li>
+            <li><a href="/users/me">Mon Compte</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/login">Login</a></li>
+            <% if (!user_session) { %>
+              <li><a href="/login">Login</a></li>
+            <% } else { %>
+              <li class="header-user"> <%= user.username %> <%= user.displayName %> </li>
+              <li><a href="/logout">Logout</a></li>
+            <% } %>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->

@@ -1,0 +1,42 @@
+<% include partials/header %>
+<div class="container">
+  <div class="row">
+    <form action="/users/users" method="GET">
+        <div class="form-group">
+          <div class="col-lg-2">
+            <label for="selectSearch">Search by...  </label>
+          </div>
+          <div class="col-lg-4">
+            <select class="form-control" name="selectSearch" id="selectSearch">
+              <option value="username"> Username </option>
+              <option value="email"> Email </option>
+            </select>
+          </div>
+        </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+        <input type="text" class="form-control" name="inputSearch" placeholder="Search">
+      </div>
+      <span class="input-group-btn">
+        <input class="btn btn-default" type="submit" value="Go !">
+      </span>
+    </form>
+  </div><!-- /.row -->
+  <br/>
+  <hr/>
+  <div class="row">
+    <p> <%= users.length %> utilisateurs trouvés </p>
+    <table class="col-md-6 table table-striped">
+      <tr>
+        <th>Utilisateurs</th>
+        <th>Email</th>
+      </tr>
+      <% users.forEach(function(user) {%>
+        <tr>
+            <td><a href="/users/<%=user._id%>"><%= user.displayName %> <%= user.username %></a></td>
+            <td><%= user.email %></td>
+        </tr>
+      <% }) %>
+    </table>
+  </div>
+</div>
+<% include partials/footer %>

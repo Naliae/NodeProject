@@ -6,11 +6,13 @@ Fait :
 - gestion html ou json,
 - création des comptes (username-password),
 - authentification
+- filtre
+- Bootstrap (75%)
 
 À faire :
 ---------------
 
-- Bootstrap //En cours, à finir avant mercredi soir
+- Bootstrap // en cours
 
 
 Bibliothèque: Liste Songs
@@ -22,7 +24,7 @@ Bibliothèque: Liste Songs
 Liste Users:
 ---------------
 - Demander en ami un user
-- Voir autres profils
+- Voir autres profils (rajout emails+limites users)
 
 
 Profil de l'User:
