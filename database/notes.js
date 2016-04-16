@@ -5,6 +5,7 @@ var noteSchema = mongoose.Schema({
     note: {type: Number, required: true},
     song: {type: mongoose.Schema.Types.ObjectId, required: true},
     username: {type: String, required: true},
+    // attention la , en trop
 });
 
 module.exports = mongoose.model('note', noteSchema);

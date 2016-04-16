@@ -4,6 +4,8 @@ var Users = Promise.promisifyAll(require('../database/users'));
 
 exports.find = function() {
     return Users.find().sort({createdAt:-1}).limit(3);
+    // J'aurais changé le nom de la fonction, findUsersForHome, ou qqch comme ça, find laisse penser que tu peux
+    //l'utilser n'importe où dans le code, sauf qu'ici on aura toujours que les 3 derniers users.
 };
 
 exports.findAll = function() {
