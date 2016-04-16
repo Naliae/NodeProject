@@ -69,6 +69,7 @@ router.post('/:id/note', function(req, res) {
     SongService.findOneByQuery({_id: req.params.id})
         .then(function(song) {
           var Note = { song: song._id, username: req.user.username,};
+            // Attention, virgule en trop !
 
             if (!song) {
               res.status(404).send({err: 'No song found with id' + req.params.id});
@@ -85,6 +86,7 @@ router.post('/:id/note', function(req, res) {
                             }
                             if (req.accepts('application/json')) {
                                 return res.status(200).send(song);
+                                //201
                             }
                         })
                         .catch(function(err) {
@@ -96,6 +98,24 @@ router.post('/:id/note', function(req, res) {
                     res.status(500).send(err);
                 })
             ;
+            // ok... ce même code peut être écrit comme ça
+            /*NoteService.findOneByQuery(Note)
+                .then(function(note) {
+                    Note.note = req.body.note;
+                    return NoteService.create(Note); // vu que lui c'est une promesse aussi...
+                })
+                .then(function(note) {
+                    if (req.accepts('text/html')) {
+                        return res.redirect('/songs/' + song._id);
+                    }
+                    if (req.accepts('application/json')) {
+                        return res.status(201).send(song);
+                    }
+                })
+                .catch(function(err) {
+                    res.status(500).send(err);
+                })
+            ;*/
         })
         .catch(function(err) {
             console.log(err);
@@ -107,11 +127,14 @@ router.post('/:id/note', function(req, res) {
 router.post('/:id/favoris', function(req, res) {
     UserService.addFavoritesToUser(req.user._id, req.params.id)
         .then(function(user) {
+            // afin d'afficher les chansons favorites, il suffisait de refraichir la valeur de l'user stocké par passport
+            // req.user.favoriteSongs = user.favoriteSongs;
             if (req.accepts('text/html')) {
                 return res.redirect("/songs/" + req.params.id);
             }
             if (req.accepts('application/json')) {
                 res.status(201).send(user);
+                // là c'est plus du 200, on ne crée pas, (oui, petit piège)
             }
         })
         .catch(function(err) {
@@ -280,11 +303,20 @@ router.delete('/:id', verifyIsAdmin, function(req, res) {
 });
 
 router.delete('/all/favoris', function(req, res) {
+    // l'url choisi n'indique pas que l'user est modifié, DELETE /songs/user/:id/favorites
+    // aurait été plus parlante, ou DELETE /users/:id/songs/favorites
     UserService.deleteAllFavoritesToUser(req.user._id)
         .then(function(user) {
+            // user ??? Attention avec les copier coller inutiles
             if (req.accepts('application/json')) {
                 res.status(204).send();
+                // good pour le status code
             }
+            //par contre, ta route ne gère que les appels faites en application/json. Depuis la vue, on l'appel avec success
+            //mais la chanson ne disparait pas de la liste, il manque un redirect
+            /*if (req.accepts('text/html')) {
+                res.redirect('/users/me');
+            }*/
         })
         .catch(function(err) {
             res.status(500).send(err);
@@ -292,10 +324,14 @@ router.delete('/all/favoris', function(req, res) {
     ;
 });
 router.delete('/:id/favoris', function(req, res) {
+    // idem l'url choisi n'indique pas que l'user est modifié, DELETE /songs/:song_id/user/:user_id/favorites
+    // aurait été plus parlante, ou DELETE /users/:user_id/songs/:song_id/favorites
     UserService.deleteFavoritesToUser(req.user._id, req.params.id)
         .then(function(user) {
+            // user ???
             if (req.accepts('application/json')) {
                 res.status(204).send();
+                // good pour le status code
             }
         })
         .catch(function(err) {

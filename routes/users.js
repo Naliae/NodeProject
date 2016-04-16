@@ -6,10 +6,13 @@ var SongService = require('../services/songs');
 
 /* GET search users listing. */
 router.get('/users', function(req, res) {
+    // une route GET /users/users ??? ça m'a l'air bizarre !
+    // j'aurais preféré GET /users/search
   var inputSearch = req.query.inputSearch;
   var selectSearch = req.query.selectSearch;
   var query = {};
   query[selectSearch] = inputSearch;
+    //+1
   UserService.search(query)
     .then(function(users) {
       if (!users) {
